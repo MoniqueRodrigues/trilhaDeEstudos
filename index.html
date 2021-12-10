@@ -7,7 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Introdução ao Angular JS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+   
 
+    <!-- angular -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- jquery materialize -->
+    <script type="text/javascript" src="js/materialize/init.js"></script>   
+    <script src="./angular/angular.min.js"></script>
+    <script src="js/app/app.js"></script>
+    <script src="js/app/controllers.js"></script>
+ 
 </head>
 
 <body ng-controller="indexController">
@@ -53,211 +64,69 @@
                         <td>{{aluno.nota3}}</td>
                         <td>{{aluno.media}}</td>
                         <!-- <td> <button ng-click="editarAluno(aluno)" class="btn blue">Editar</button></td> -->
-                        <td><a ng-click="editarAluno(aluno)"class="waves-effect waves-light btn blue">button</a></td>
-
+                        <!-- <td><a ng-click="editarAluno(aluno)"class="waves-effect waves-light btn blue">button</a></td> -->
+                        <td><a ng-click="editarAluno(aluno)"class="waves-effect waves-light btn modal-trigger btn blue" href="#modal1">Editar</a> </td>
+                        <td><a ng-click="deletarAluno(aluno)"class="waves-effect waves-light btn red">Deletar</a> </td>
                     </tr>
 
                 </tbody>
+                    <!-- botao: -->
+                <div class="row">
+                    <!-- modal -->
+                    <a ng-click="abreAddAluno()" class="waves-effect waves-light btn modal-trigger" href="#modal1">Adicionar</a> </div>
+
 
             </table>
 
         </div>
 
-        <!-- botao: -->
-        <div class="row">
-            <!-- modal -->
-            <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Adicionar</a>
-        </div>
-
+       
 
     </main>
 
     <!-- Modal Structure -->
     <div id="modal1" class="modal modal-fixed-footer">
         <div class="modal-content">
-            <h4>Adicionar Aluno </h4>
+            <h4 ng-if="!editando">Adicionar Aluno </h4>
+            <h4 ng-if="editando">Editar Aluno </h4>
             <p>Preencha os dados do Aluno</p>
 
             <!-- criação dos inputs: -->
             <div class="row">
                 <div class="input-field col m6 s12">
-                    <input type="text" ng-model="Aluno.nome" class="validate">
-                    <label>Nome:</label>
+                    <input type="text" ng-model="Aluno.nome" class="validate" placeholder="Nome">
+                 
                 </div>
                 <!-- {{Aluno}} -->
                 <div class="input-field col m6 s12">
-                    <input type="text" class="validate" ng-model="Aluno.email">
-                    <label>E-mail:</label>
+                    <input type="text" class="validate" ng-model="Aluno.email" placeholder="E-mail">
+                  
                 </div>
                 <div class="input-field col m4 s12">
-                    <input type="text" class="validate" ng-model="Aluno.nota1">
-                    <label>Nota1:</label>
+                    <input type="text" class="validate" ng-model="Aluno.nota1" placeholder="Nota:1">
+          
                 </div>
                 <div class="input-field col m4 s12">
-                    <input type="text" class="validate" ng-model="Aluno.nota2">
-                    <label>Nota2:</label>
+                    <input type="text" class="validate" ng-model="Aluno.nota2" placeholder="Nota 2">
+                    
                 </div>
                 <div class="input-field col m4 s12">
-                    <input type="text" class="validate" ng-model="Aluno.nota3">
-                    <label>Nota3:</label>
+                    <input type="text" class="validate" ng-model="Aluno.nota3" placeholder="Nota 3">
+                   
                 </div>
 
             </div>
 
         </div>
         <!-- botoes do Modal -->
-        <div class="modal-footer">
+        <div class="modal-footer">         
+            <a ng-if="!editando" ng-click="addAluno(Aluno)" class="modal-close waves-effect waves-light btn blue">Adicionar</a>
+            <a ng-if="editando" ng-click="salvarAluno(Aluno)" class="modal-close waves-effect waves-light btn blue">Salvar</a>
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
-            <a ng-click="addAluno(Aluno)" class="modal-close waves-effect waves-light btn blue">Adicionar</a>
 
         </div>
-    </div>
+    </div>   
 
-
-    <!-- 
-angular -->
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="./angular/angular.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.modal').modal();
-        });
-    </script>
-
-
-
-
-
-
-    <script type="text/javascript">
-        angular.module("meuModulo", [])
-            .controller("indexController", function ($scope) {
-
-
-                $scope.titulo = "Sistema com Angular JS";
-                $scope.alunos = [{
-                        nome: "Monique",
-                        email: "moniqueoliveira0104@gmail.com",
-                        nota1: 40,
-                        nota2: 60,
-                        nota3: 80
-                    },
-                    {
-                        nome: "Ivan",
-                        email: "ivanoliveira0104@gmail.com",
-                        nota1: 50,
-                        nota2: 20,
-                        nota3: 70
-                    },
-                    {
-                        nome: "Julia",
-                        email: "juliaoliveira0104@gmail.com",
-                        nota1: 20,
-                        nota2: 50,
-                        nota3: 60
-                    },
-                    {
-                        nome: "Michelle",
-                        email: "michelleoliveira0104@gmail.com",
-                        nota1: 30,
-                        nota2: 50,
-                        nota3: 80
-                    },
-                    {
-                        nome: "Flávia",
-                        email: "flaviaoliveira0104@gmail.com",
-                        nota1: 10,
-                        nota2: 20,
-                        nota3: 80
-                    },
-
-
-                ]
-
-                //calculo media:
-
-                var init = function () {
-                    $scope.alunos.forEach(function (aluno) {
-                        aluno.media = media(aluno);
-
-                    });
-                    limpaForm();
-                };
-                var media = function (Aluno) {
-                    var media = (parseFloat(Aluno.nota1) + parseFloat(Aluno.nota2) + parseFloat(Aluno.nota3) /
-                        3);
-                    return media.toFixed(2);
-
-
-                }
-
-
-                //adiciona registro aluno novo no modal:
-                $scope.addAluno = function (Aluno) {
-                    Aluno.media = media(Aluno);
-                    $scope.alunos.push(Aluno);
-                    limpaForm();
-                 
-                   
-                };
-
-
-                //edita formulário:
-                $scope.editarAluno=function(Aluno){
-                    $('.modal').openModal();
-
-
-
-                }
-
-
-              //limpa formulário:
-              var limpaForm = function(){
-                $scope.Aluno = {
-                        nome: "",
-                        email: "",
-                        nota1: "",
-                        nota2: "",
-                        nota3: "",
-                        media: ""
-                    };
-
-              }
-
-
-
-
-
-
-
-
-
-
-                init();
-
-
-
-
-
-
-
-
-
-            })
-
-
-
-        // $scope.media = function (Aluno) {
-        //     var media = (Aluno.nota1 + Aluno.nota2 + Aluno.nota3) / 3;
-        //     return media.toFixed(2);
-
-        // }
-
-        //adicionar aluno:
-    </script>
 </body>
 
 </html>
