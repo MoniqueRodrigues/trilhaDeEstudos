@@ -1,0 +1,32 @@
+
+
+.jumbotron{
+    width: 400px;
+    text-align: center;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding:45px 20px;
+    background-color:lightgrey;
+
+    
+
+}
+
+.table{
+    margin-top:20px;
+
+}
+.form-control{
+    margin-top:10px;
+}
+
+.container-botao{
+    margin-top:20px;
+
+}
+.selecionado{
+    background-color:lightgrey;
+    font-weight:bold;
+
+}
