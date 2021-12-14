@@ -1,132 +1,67 @@
 <!DOCTYPE html>
-<html ng-App="meuModulo">
-
+<html ng-app ="listaTelefonica">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Introdução ao Angular JS</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-   
+    <title>Lista Telefônica</title>  
 
-    <!-- angular -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!-- jquery materialize -->
-    <script type="text/javascript" src="js/materialize/init.js"></script>   
-    <script src="./angular/angular.min.js"></script>
-    <script src="js/app/app.js"></script>
-    <script src="js/app/controllers.js"></script>
+     <!-- BOOTSTRAP -->
+    <!-- <link rel="stylesheet" href="lib/bootstrap/bootstrap.css"> 
+    <script src="lib/bootstrap/bootstrap.js"></script>     -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
  
+    <!-- ANGULAR JS -->
+    <script src="lib/angular/angular.js"></script> 
+    <!-- JS -->
+   <script src="listaTelefonicaController.js"></script>    
+
 </head>
 
-<body ng-controller="indexController">
 
 
-    <header class="container">
-        <div class="row">
-            <h2 ng-bind="titulo"> </h2>
-        </div>
+<!-- VIEW -->
+<body ng-controller="listaTelefonicaCtrl">
+    <!-- {{contatos}} -->
+    <div class="jumbotron">
+        <h3>{{app}}</h3>
+        <table ng-show="contatos.length > 0" class="table ">
+            <tr >
+                <th></th>
+                <th>Nome</th>
+                <th>Telefone</th> 
+                <th>Operadora</th>   
+
+            </tr>
+            <tr ng-class="{selecionado:contato.selecionado}" ng-repeat="contato in contatos">
+            <td> <input type="checkbox" ng-model="contato.selecionado" ></td>
+            <td> {{contato.nome}}</td>
+            <td> {{contato.telefone}}</td>
+            <td> {{contato.operadora.nome}}</td>
+             <!-- <td ng-repeat="(key,value) in contato">{{value}}</td> -->           
+             </tr>               
+        </table>     
+        <br>
+        
+        <input type="text" class="form-control" placeholder="Nome"ng-model="contato.nome">
+        <input type="text" class="form-control" placeholder="Telefone" ng-model= "contato.telefone">
+        <select class="form-control" ng-model="contato.operadora" ng-options= "operadora.nome for operadora in operadoras">
+            <option value= "">Selecione uma operadora</option>
+        </select>
+        <div class="d-grid gap-2 container-botao">
+        <button class="btn btn-dark" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone">Adicionar Contato</button>
+        <button class="btn btn-danger"ng-click="apagarContatos(contatos)" ng-if="isContatoSelecionado(contatos)">Apagar Contato</button>
+       </div> 
       
-    </header>
-
-    <main class="container">
-        <!-- campo de busca: -->
-        <div class="row">
-            <input type="text" ng-model="busca.nome" placeholder="Busca">
-        </div>
-
-        <!-- tabela: -->
-        <div class="row">
-            <table class="striped">
-                <thead>
-                    <tr>
-                        <th>Nome </th>
-                        <th>E-mail </th>
-                        <th>Nota 1 </th>
-                        <th>Nota 2 </th>
-                        <th>Nota 3</th>
-                        <th>Média</th>
-                        <th>Ação</th>
 
 
-                    </tr>
 
+    </div>
+    <div ng-include src="'footer.html'"></div>
 
-                </thead>
-                <tbody>
-                    <tr ng-repeat="aluno in alunos | filter:busca">
-                        <td>{{aluno.nome}}</td>
-                        <td>{{aluno.email}}</td>
-                        <td>{{aluno.nota1}}</td>
-                        <td>{{aluno.nota2}}</td>
-                        <td>{{aluno.nota3}}</td>
-                        <td>{{aluno.media}}</td>
-                        <!-- <td> <button ng-click="editarAluno(aluno)" class="btn blue">Editar</button></td> -->
-                        <!-- <td><a ng-click="editarAluno(aluno)"class="waves-effect waves-light btn blue">button</a></td> -->
-                        <td><a ng-click="editarAluno(aluno)"class="waves-effect waves-light btn modal-trigger btn blue" href="#modal1">Editar</a> </td>
-                        <td><a ng-click="deletarAluno(aluno)"class="waves-effect waves-light btn red">Deletar</a> </td>
-                    </tr>
-
-                </tbody>
-                    <!-- botao: -->
-                <div class="row">
-                    <!-- modal -->
-                    <a ng-click="abreAddAluno()" class="waves-effect waves-light btn modal-trigger" href="#modal1">Adicionar</a> </div>
-
-
-            </table>
-
-        </div>
-
-       
-
-    </main>
-
-    <!-- Modal Structure -->
-    <div id="modal1" class="modal modal-fixed-footer">
-        <div class="modal-content">
-            <h4 ng-if="!editando">Adicionar Aluno </h4>
-            <h4 ng-if="editando">Editar Aluno </h4>
-            <p>Preencha os dados do Aluno</p>
-
-            <!-- criação dos inputs: -->
-            <div class="row">
-                <div class="input-field col m6 s12">
-                    <input type="text" ng-model="Aluno.nome" class="validate" placeholder="Nome">
-                 
-                </div>
-                <!-- {{Aluno}} -->
-                <div class="input-field col m6 s12">
-                    <input type="text" class="validate" ng-model="Aluno.email" placeholder="E-mail">
-                  
-                </div>
-                <div class="input-field col m4 s12">
-                    <input type="text" class="validate" ng-model="Aluno.nota1" placeholder="Nota:1">
-          
-                </div>
-                <div class="input-field col m4 s12">
-                    <input type="text" class="validate" ng-model="Aluno.nota2" placeholder="Nota 2">
-                    
-                </div>
-                <div class="input-field col m4 s12">
-                    <input type="text" class="validate" ng-model="Aluno.nota3" placeholder="Nota 3">
-                   
-                </div>
-
-            </div>
-
-        </div>
-        <!-- botoes do Modal -->
-        <div class="modal-footer">         
-            <a ng-if="!editando" ng-click="addAluno(Aluno)" class="modal-close waves-effect waves-light btn blue">Adicionar</a>
-            <a ng-if="editando" ng-click="salvarAluno(Aluno)" class="modal-close waves-effect waves-light btn blue">Salvar</a>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
-
-        </div>
-    </div>   
-
+    
 </body>
-
 </html>
