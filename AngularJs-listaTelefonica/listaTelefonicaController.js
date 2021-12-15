@@ -1,13 +1,13 @@
  
-    var app = angular.module('listaTelefonica', []);
+    var app = angular.module('listaTelefonica', ["ngMessages"]);
     app.controller('listaTelefonicaCtrl', function($scope){
 
         $scope.app = "Lista telefônica"
 
         $scope.contatos = [
-            { nome: "Monique", telefone: "99998888"},
-            { nome: "Ivan", telefone: "77778888"},
-            { nome: "Júlia", telefone: "55558888"}
+            { nome: "Monique", telefone: "99998888", data: new Date()},
+            { nome: "Ivan", telefone: "77778888",    data: new Date()},
+            { nome: "Júlia", telefone: "55558888",   data: new Date()}
         ];
 
 
@@ -25,6 +25,9 @@
         $scope.adicionarContato = function(contato){
             $scope.contatos.push(angular.copy(contato));
             delete $scope.contato;
+            $scope.contatoForm.$setPristine();
+
+
             
         };
 
@@ -42,6 +45,17 @@
 
         });
     };
+
+    $scope.ordenarPor = function(campo){
+        
+
+
+    }
+
+
+
+
+
                
 
     });
