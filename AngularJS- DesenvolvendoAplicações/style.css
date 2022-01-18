@@ -1,0 +1,21 @@
+.finalizado{
+    color: blue;
+}
+.pendente{
+    color:red;
+}
+
+button{
+    padding:10px;
+}
+
+.nome.ng-valid{
+  color:green;
+}
+.nome.ng-dirty.ng-invalid-required{
+    background-color: red;
+}
+
+.nome.ng-dirty.ng-invalid-minlength{  
+    color:orange;
+}

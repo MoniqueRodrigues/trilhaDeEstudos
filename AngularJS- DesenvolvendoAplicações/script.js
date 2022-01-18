@@ -24,10 +24,6 @@ angular.module('appAngular', [])
             }    
 
             }
-
-
-
-
         }
 
 
@@ -45,9 +41,20 @@ angular.module('appAngular', [])
         }
 
 
+        $scope.cursos = [            
+            {id:1, descricao:"Java"},            
+            {id:2, descricao: "NodeJs"},            
+            {id:3, descricao:"Excel"}       
+        
+        ];
+      $scope.submit = function(){
+          alert ('DADOS DO ALUNO:\Nome:'+" "+$scope.nome + '\Curso:' + $scope.curso.descricao + '\Periodo:' + $scope.periodo);
 
-          //calculo número primo:
-        //   Número primo é todo o número que só pode ser dividido pelo número 1 por ele mesmo.
+      };
+
+
+
+
 
 
     });

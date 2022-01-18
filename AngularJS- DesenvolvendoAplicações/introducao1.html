@@ -79,25 +79,55 @@
     <input type="submit" value="Submit 2"> 
 </form>
 
-<h2>Validação de formulários</h2>
-<form ng-submit="submit()" name=alunosForm>
-    Nome:
 </br>
-    <input type="text"
-    class="form-control nome" 
-    name="nome"
-    ng-model="aluno.nome" 
-    placeholder="Nome" 
-    ng-minlength="4" 
-    required>
-    <span ng-show="alunosForm.nome.$error.required">Campo obrigatório</span>
 
-Curso:
-<br>
-<input type="text" class="form-control curso" name="curso"  ng-model="aluno.curso" placeholder="Curso" ng-minlength=>
+<span>---------------------------------- </span>
+
+<h2>Validação de formulários</h2>
+<form ng-submit="submit()" name="alunosForm">
+        Nome:
+    </br>
+        <input type="text" class="nome" name="nome"  ng-model="aluno.nome" placeholder="Nome" ng-minlength="4" required>
+        <span ng-show="alunosForm.nome.$error.required">Campo obrigatório</span>
+</br>
+
+    Curso:
+    <br>
+    <input type="text" class="form-control curso" name="curso"  ng-model="aluno.curso" placeholder="Curso" ng-minlength=>
+    <input type= "submit" value="Enviar"/>
+
+    
+</br>
+<span>---------------------------------- </span>
+
 
 </form>
 
+<h2>Controle de alunos</h2> </br>
+
+<form ng-submit="submit()">
+    Nome: 
+    <input type="text" ng-model = "nome" />
+</br>
+
+    Curso:
+    <select ng-model="curso" ng-options ="c.descricao for c in cursos"></select>
+</br>
+   Periodo:
+   <label>
+       <input type="radio" name="periodo" ng-model= "periodo" value="manhã">Manhã
+    </label>
+   <label> 
+       <input type="radio" name="periodo" ng-model= "periodo" value="noite">Noite
+
+  </label>
+</br>
+<input type="submit" value="Enviar">
+
+</form>
+
+
+//AULA 10
 
 
 
