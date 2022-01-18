@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app ="listaTelefonica">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Telefônica</title>  
+
+     <!-- BOOTSTRAP -->
+    <!-- <link rel="stylesheet" href="lib/bootstrap/bootstrap.css"> 
+    <script src="lib/bootstrap/bootstrap.js"></script>     -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/app.css">
+ 
+    <!-- ANGULAR JS -->
+    <script src="lib/angular/angular.js"></script> 
+    <script src="lib/angular/angular-messages.js"></script> 
+    <script src="./js/app.js"></script>
+    <!-- <script src="angularjs-currency-input-mask/dist/angularjs-currency-input-mask.min.js"></script> -->
+   
+
+ 
+    <!-- JS -->
+   <script src="./js/controllers/listaTelefonicaController.js"></script>    
+
+</head>
+
+
+
+<!-- VIEW -->
+<body ng-controller="listaTelefonicaCtrl">
+      <div class="jumbotron">
+        <h3>{{app}}</h3>
+        <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?">
+        <table ng-show="contatos.length > 0" class="table ">
+            <tr >
+                <th></th>
+                <th><a href=""ng-click="ordenarPor('nome')">Nome </a></th>
+                <th> <a href="" ng-click="ordenarPor('telefone')">Telefone </a></th> 
+                <th>Operadora</th>  
+                <th>Data</th>  
+
+
+            </tr>
+            <tr ng-class="{selecionado:contato.selecionado}" ng-repeat="contato in contatos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+            <td> <input type="checkbox" ng-model="contato.selecionado" ></td>
+            <td> {{contato.nome}}</td>
+            <td> {{contato.telefone}}</td>
+            <td> {{contato.operadora.nome|lowercase}}</td>
+            <td> {{contato.data|date:'dd/MM/yyyy HH:mm'}}</td>
+
+             <!-- <td ng-repeat="(key,value) in contato">{{value}}</td> -->           
+             </tr>               
+        </table>     
+        <br>
+        <form name="contatoForm">
+            <input type="text" class="form-control" placeholder="Nome" name="nome" ng-model="contato.nome" ng-required="true"ng-minlength="10">
+                <div ng-show="contatoForm.nome.$error.required && contatoForm.nome.$dirty">Por favor preencha o campo nome</div>
+                <div ng-show="contatoForm.nome.$error.minlength">O campo nome deve ter no mínimo 10 caracteres</div>
+            <!-- <div ng-messages="contatoForm.nome.$error">
+                <div ng-message="required">Por favor preencha o campo nome</div>
+                <div ng-message="minlength">O campo nome deve ter no mínimo 10 caracteres</div>
+
+            </div> -->
+            
+            <input type="text" class="form-control" placeholder="Telefone" name="telefone" ng-model="contato.telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" >
+                <div ng-show="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty">Por favor preencha o campo telefone</div>
+                <div ng-show="contatoForm.telefone.$error.pattern">O campo telefone deve ter o formato DDDDD-DDDD.</div>
+              
+            <select class="form-control" ng-model="contato.operadora" ng-options= "operadora.nome +  operadora.preco for operadora in operadoras | orderBy:'nome'" ng-required="true" >
+                    <option value= "">Selecione uma operadora</option>
+            </select>     
+                   
+        </form>
+     
+        <div class="d-grid gap-2 container-botao">
+        <button class="btn btn-dark" ng-click="adicionarContato(contato)" >Adicionar Contato</button>
+        <button class="btn btn-danger"ng-click="apagarContatos(contatos)" ng-if="isContatoSelecionado(contatos)">Apagar Contato</button>
+       </div> 
+      
+
+
+
+    </div>
+    <div ng-include src="'view/footer.html'"></div>
+
+    
+</body>
+</html>

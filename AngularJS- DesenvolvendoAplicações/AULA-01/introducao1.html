@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html ng-app="appAngular">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="lib/angular.min.js"></script>
+    <script src="script.js"></script>
+    
+
+    <title>Aula 01</title>
+</head>
+<body ng-controller="principalCtrl">
+
+    <h3>Aula01</h3>
+    <input type="text" ng-model="curso" placeholder="Forneça a descricao do curso">
+    <h2>Você está desenvolvendo o curso de {{curso}}</h2>
+    <h2>Você está desenvolvendo o curso de <span ng-bind= "curso"></span></h2> <br/>
+
+    <span>---------------------------------- </span>
+
+
+
+    <h3>Aula02</h3>
+    <h1>{{mensagem}}</h1>
+<button ng-click="alterarMsg()"> Clique-me</button> </br>
+
+<span>---------------------------------- </span>
+
+<h2>Lista de alunos</h2>
+<div ng-repeat="nome in nomes">
+    {{nome}}
+</div>
+</br>
+
+<div ng-repeat="aluno in alunos" ng-class="verificaStatus(aluno.status)">
+    Nome: {{aluno.nome}} <br/>
+    Curso: {{aluno.curso}} <br/>
+    Status: {{aluno.status}} <br/>
+    <span>---------------------------------- </span>
+</div>
+
+<h2>Informações da empresa</h2>
+<div ng-repeat="(atrib,dados) in empresa">
+ <strong>{{atrib}}</strong> 
+</br>
+    CNPJ: {{dados.CNPJ}} 
+</br>
+    Descrição: {{dados.Descricao}}
+</br>
+    Endereço:
+ </br>
+    Logradouro: {{dados.Endereco.Logradouro}}
+  </br>
+    Número: {{dados.Endereco.Numero}} 
+</br> 
+    Cidade: {{dados.Endereco.Cidade}}
+ </br> 
+</div>
+
+</br>
+
+<span>---------------------------------- </span>
+
+
+<h2>Formulário 1</h2>
+<form ng-submit="submit1()">
+    <input type="text" value="" ng-model="nome" placeholder="Informe o nome">
+    <input type="text" value="" ng-model="curso" placeholder="Informe o curso">
+    <input type="submit" value="Submit 1"> 
+</form>
+
+
+<h2>Formulário 2</h2>
+<form ng-submit="submit2()">
+    <input type="text" value="" ng-model="auno.nome" placeholder="Informe o nome">
+    <input type="text" value="" ng-model="aluno.curso" placeholder="Informe o curso">
+    <input type="submit" value="Submit 2"> 
+</form>
+
+<h2>Validação de formulários</h2>
+<form ng-submit="submit()" name=alunosForm>
+    Nome:
+</br>
+    <input type="text"
+    class="form-control nome" 
+    name="nome"
+    ng-model="aluno.nome" 
+    placeholder="Nome" 
+    ng-minlength="4" 
+    required>
+    <span ng-show="alunosForm.nome.$error.required">Campo obrigatório</span>
+
+Curso:
+<br>
+<input type="text" class="form-control curso" name="curso"  ng-model="aluno.curso" placeholder="Curso" ng-minlength=>
+
+</form>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+</body>
+</html>
